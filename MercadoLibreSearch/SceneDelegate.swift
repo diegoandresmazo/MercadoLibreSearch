@@ -18,8 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        let navigationConfigurator = NavigationConfigurator(window: window!, rootNavigationController: rootNavigationController, apiService: apiService)
-        navigationConfigurator.start()
+        let navigator = Navigator(window: window!, rootNavigationController: rootNavigationController, apiService: apiService)
+        navigator.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {}

@@ -8,8 +8,10 @@
 import UIKit
 
 public final class ProductsConfigurator {
-    public static func getViewController(with apiService: APIServiceType) -> UIViewController {
-        let presenter = ProductsPresenter(productsService: ProductsService(apiService: apiService))
+    
+    static func getViewController(with apiService: APIServiceType, navigator: Navigator) -> UIViewController {
+        
+        let presenter = ProductsPresenter(productsService: ProductsService(apiService: apiService), navigator: navigator)
         let viewController = ProductsViewController(presenter: presenter)
         viewController.modalPresentationStyle = .fullScreen
         

@@ -39,26 +39,27 @@ class ProductsService: ProductsServiceType {
             .eraseToAnyPublisher()
     }
     
-    func search(for query: String) -> AnyPublisher<SearchEntity, CloudError> {
-        // TO-DO: Manejar el URL optional Binding
+    private func search(for query: String) -> AnyPublisher<SearchEntity, CloudError> {
         let urlString = baseURL + query
-        let url = URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
-        let request = URLRequest(url: url)
+        guard let urlWithPercentEncoding = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: urlWithPercentEncoding) else {
+            preconditionFailure("Bad base URL")
+        }
         
+        let request = URLRequest(url: url)
         return apiService.call(request, type: SearchAPI.self)
             .map({ SearchWrapper.map(input: $0)})
             .eraseToAnyPublisher()
     }
     
-    func getCurrency(for currencyId: String) -> AnyPublisher<CurrencyEntity, CloudError> {
-        // TO-DO: Manejar el URL optional Binding
+    private func getCurrency(for currencyId: String) -> AnyPublisher<CurrencyEntity, CloudError> {
         let urlString = currenciesBaseURL + currencyId
-        let url = URL(string: urlString)!
-        let request = URLRequest(url: url)
+        guard let url = URL(string: urlString) else {
+            preconditionFailure("Bad currencies URL")
+        }
         
+        let request = URLRequest(url: url)
         return apiService.call(request, type: CurrencyAPI.self)
             .map({ CurrencyWrapper.map(input: $0)})
             .eraseToAnyPublisher()
     }
 }
-

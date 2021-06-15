@@ -17,10 +17,6 @@ public extension UIFont {
         return UIFont(name: "Avenir-Light", size: size) ?? UIFont.systemFont(ofSize: size)
     }
     
-    static func mercadoBlack(withSize size: CGFloat) -> UIFont {
-        return UIFont(name: "Avenir-Black", size: size) ?? UIFont.systemFont(ofSize: size)
-    }
-    
     static func mercadoHeavy(withSize size: CGFloat) -> UIFont {
         return UIFont(name: "Avenir-Heavy", size: size) ?? UIFont.systemFont(ofSize: size)
     }

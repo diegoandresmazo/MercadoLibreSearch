@@ -25,6 +25,11 @@ class ProductsViewController: UIViewController {
         initializeViewElements()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     public init(presenter: ProductsPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -39,30 +44,48 @@ class ProductsViewController: UIViewController {
     
     private func initializeViewElements() {
         tableViewManager = ProductsTableViewManager(tableView: customView.productsTableView, sections: [])
+        tableViewManager.delegate = self
         customView.searchBar.delegate = self
     }
     
     private func transformData(_ data: [ProductEntity]) -> [ProductsTableViewCellModel] {
         return data.map {
-            ProductsTableViewCellModel(name: $0.title, price: $0.price, installments: $0.installments, currency: $0.currency, imageLink: $0.imageLink)
+            ProductsTableViewCellModel(name: $0.title, price: $0.price, installments: $0.installments, currency: $0.currency, thumbnailLink: $0.thumbnailLink)
         }
     }
 }
 
 extension ProductsViewController: ProductsViewControllerType {
-    func showProducts(_ products: [ProductEntity]) {
-        tableViewManager.sections = [
-            ProductsTableViewSectionModel(title: "", data: transformData(products))
-        ]
+    func show(_ productViewStatus: ProductsViewStatus, products: [ProductEntity]?) {
+        switch productViewStatus {
+        case .showLoadingSearch:
+            customView.setupView(for: .showLoadingSearch)
+        case .showNotResults:
+            customView.setupView(for: .showNotResults)
+        case .showProducts:
+            guard let products = products else { return }
+            customView.setupView(for: .showProducts)
+            
+            tableViewManager.sections = [
+                ProductsTableViewSectionModel(title: "", data: transformData(products))
+            ]
+        case .showError:
+            customView.setupView(for: .showError)
+        }
+    }
+}
+
+extension ProductsViewController: DidSelectRowActionDelegate {
+    func cellPressed(for position: Int) {
+        presenter.openDetailProduct(for: position)
     }
 }
 
 extension ProductsViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        let query = searchBar.text
-//        TO-DO: Manehar el force unwrapping
-        presenter.getProducts(for: query!)
+        guard let query = searchBar.text else { return }
+        presenter.getProducts(for: query)
     }
     
     func position(for bar: UIBarPositioning) -> UIBarPosition {

@@ -28,5 +28,5 @@ public struct ProductsTableViewCellModel: Equatable {
     var price: Double
     var installments: InstallmentsEntity?
     var currency: CurrencyEntity?
-    var imageLink: String
+    var thumbnailLink: String
 }

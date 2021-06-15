@@ -37,12 +37,24 @@ extension UIColor {
         return UIColor(hexString: "ffe600")
     }
     
+    static public var mercadoBackgroundColor: UIColor? {
+        return UIColor(hexString: "f6f6f8")
+    }
+    
     static public var mercadoGrayColor: UIColor? {
-        return UIColor(hexString: "474747")
+        return UIColor(hexString: "3c3c3c")
+    }
+    
+    static public var mercadoMediumGrayColor: UIColor? {
+        return UIColor(hexString: "848484")
     }
     
     static public var mercadoLightGrayColor: UIColor? {
         return UIColor(hexString: "bdbdbd")
+    }
+    
+    static public var mercadoDetailContainerColor: UIColor? {
+        return UIColor(hexString: "ebebeb")
     }
     
     static public var mercadoGreenColor: UIColor? {

@@ -15,6 +15,7 @@ public protocol TableViewManagerType: UITableViewDelegate, UITableViewDataSource
 
 final class ProductsTableViewManager: NSObject, TableViewManagerType {
     var tableView: UITableView
+    weak var delegate: DidSelectRowActionDelegate?
     
     public var sections: [ProductsTableViewSectionModel] = [] {
         didSet {
@@ -40,6 +41,10 @@ final class ProductsTableViewManager: NSObject, TableViewManagerType {
     private func updateDataSource() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            
+            if !self.sections.isEmpty {
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: false)
+            }
         }
     }
 
@@ -57,10 +62,14 @@ final class ProductsTableViewManager: NSObject, TableViewManagerType {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell: ProductsTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: ProductsTableViewCell.reuseIdentifier, for: indexPath) as? ProductsTableViewCell else {
-            fatalError("Unable to Dequeue Reusable Collection View Cell")
+            fatalError("Unable to dequeue reusable cell")
         }
         
         cell.configure(with: sections[indexPath.section].data[indexPath.row])
         return cell as UITableViewCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.cellPressed(for: indexPath.row)
     }
 }

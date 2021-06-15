@@ -10,10 +10,28 @@ import Foundation
 struct ProductWrapper {
     static func map(input: ProductAPI) -> ProductEntity {
         guard let installmentsAPI = input.installments else {
-            return ProductEntity(id: input.id, title: input.title, price: input.price, currencyId: input.currencyId, imageLink: input.imageLink, installments: nil, currency: nil)
+            return ProductEntity(id: input.id,
+                                 title: input.title,
+                                 price: input.price,
+                                 currencyId: input.currencyId,
+                                 thumbnailLink: input.thumbnailLink,
+                                 condition: input.condition,
+                                 availableQuantity: input.availableQuantity,
+                                 soldQuantity: input.soldQuantity,
+                                 installments: nil,
+                                 currency: nil)
         }
                 
         let installments = InstallmentsWrapper.map(input: installmentsAPI)
-        return ProductEntity(id: input.id, title: input.title, price: input.price, currencyId: input.currencyId, imageLink: input.imageLink, installments: installments, currency: nil)
+        return ProductEntity(id: input.id,
+                             title: input.title,
+                             price: input.price,
+                             currencyId: input.currencyId,
+                             thumbnailLink: input.thumbnailLink,
+                             condition: input.condition,
+                             availableQuantity: input.availableQuantity,
+                             soldQuantity: input.soldQuantity,
+                             installments: installments,
+                             currency: nil)
     }
 }

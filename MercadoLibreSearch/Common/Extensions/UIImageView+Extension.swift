@@ -7,12 +7,14 @@
 
 import Kingfisher
 import UIKit
+import os.log
 
 extension UIImageView {
     func setImageFromURL(_ url: URL?) {
         guard let url = url else {
-            // TO-DO: Pensar en un error para esto
-            print("Error, empty URL.")
+            let logger = Logger.init(subsystem: "UIImageView", category: "Kingfisher")
+            logger.error("Error, empty URL.")
+            
             return
         }
         setupImageResource(ImageResource(downloadURL: url))

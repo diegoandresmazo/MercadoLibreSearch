@@ -17,11 +17,4 @@ public struct SearchAPI: Codable {
         case site_id
         case products = "results"
     }
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        query = try container.decode(String.self, forKey: .query)
-        site_id = try container.decode(String.self, forKey: .site_id)
-        products = try container.decode([ProductAPI].self, forKey: .products)
-    }
 }

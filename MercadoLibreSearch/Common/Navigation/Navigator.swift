@@ -1,5 +1,5 @@
 //
-//  NavigationConfigurator.swift
+//  Navigator.swift
 //  MercadoLibreSearch
 //
 //  Created by Diego Andres Mazo Munoz on 11/06/21.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public final class NavigationConfigurator {
+public final class Navigator {
     private let window: UIWindow
     private let rootNavigationController: UINavigationController
     private let apiService: APIServiceType
@@ -20,12 +20,17 @@ public final class NavigationConfigurator {
     }
 
     public func start() {
-        let productsViewController = ProductsConfigurator.getViewController(with: apiService)
+        let productsViewController = ProductsConfigurator.getViewController(with: apiService, navigator: self)
         rootNavigationController.setViewControllers([productsViewController], animated: false)
         rootNavigationController.setNavigationBarHidden(true, animated: false)
         
         window.rootViewController = rootNavigationController
         window.makeKeyAndVisible()
     }
+    
+    public func navigateToDetail(product: ProductEntity) {
+        let productDetailViewController = ProductDetailConfigurator.getViewController(for: product, with: apiService, navigator: self)
+        rootNavigationController.setNavigationBarHidden(false, animated: false)
+        rootNavigationController.pushViewController(productDetailViewController, animated: true)
+    }
 }
-

@@ -9,8 +9,13 @@ import UIKit
 
 final class ProductsTableViewCell: UITableViewCell, ConfigurableProductsCell {    
     private struct Constants {
-//        TO-DO: Add constants.
-//        static let iconSize = CGSize(width: 120, height: 120)
+        static let titleLabelSize: CGFloat = 16
+        static let priceLabelSize: CGFloat = 20
+        static let installmentsLabelSize: CGFloat = 14
+        static let separatorHeight: CGFloat = 1
+        static let imageSize = CGSize(width: 120, height: 120)
+        static let favoriteIconSize = CGSize(width: 20, height: 20)
+        static let contentBorderInsets = UIEdgeInsets(top: 20, left: 12, bottom: -20, right: -12)
     }
     
     private lazy var image: UIImageView = {
@@ -24,8 +29,10 @@ final class ProductsTableViewCell: UITableViewCell, ConfigurableProductsCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.font = .mercadoLight(withSize: 16)
+        label.numberOfLines = 3
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.8
+        label.font = .mercadoLight(withSize: Constants.titleLabelSize)
         label.textColor = .black
 
         return label
@@ -35,8 +42,7 @@ final class ProductsTableViewCell: UITableViewCell, ConfigurableProductsCell {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
-        label.sizeToFit()
-        label.font = .mercadoFont(withSize: 20)
+        label.font = .mercadoFont(withSize: Constants.priceLabelSize)
         label.textColor = .black
 
         return label
@@ -46,8 +52,7 @@ final class ProductsTableViewCell: UITableViewCell, ConfigurableProductsCell {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
-        label.sizeToFit()
-        label.font = .mercadoFont(withSize: 14)
+        label.font = .mercadoFont(withSize: Constants.installmentsLabelSize)
         label.textColor = .black
 
         return label
@@ -57,8 +62,7 @@ final class ProductsTableViewCell: UITableViewCell, ConfigurableProductsCell {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
-        label.sizeToFit()
-        label.font = .mercadoFont(withSize: 14)
+        label.font = .mercadoFont(withSize: Constants.installmentsLabelSize)
         label.textColor = .mercadoGreenColor
 
         return label
@@ -76,7 +80,7 @@ final class ProductsTableViewCell: UITableViewCell, ConfigurableProductsCell {
 
     private lazy var separator: UIView = {
         let view = UIView(frame: .zero)
-        view.backgroundColor = UIColor.lightGray
+        view.backgroundColor = .mercadoLightGrayColor
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -84,9 +88,9 @@ final class ProductsTableViewCell: UITableViewCell, ConfigurableProductsCell {
     
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         selectionStyle = .none
-
-        backgroundColor = .white
+        
         contentView.addSubview(image)
         contentView.addSubview(titleLabel)
         contentView.addSubview(priceLabel)
@@ -99,27 +103,27 @@ final class ProductsTableViewCell: UITableViewCell, ConfigurableProductsCell {
             separator.topAnchor.constraint(equalTo: contentView.topAnchor),
             separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            separator.heightAnchor.constraint(equalToConstant: 1),
+            separator.heightAnchor.constraint(equalToConstant: Constants.separatorHeight),
             
-            image.topAnchor.constraint(equalTo: separator.topAnchor, constant: 20),
-            image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            image.widthAnchor.constraint(equalToConstant: 120),
-            image.heightAnchor.constraint(equalToConstant: 120),
+            image.topAnchor.constraint(equalTo: separator.topAnchor, constant: Constants.contentBorderInsets.top),
+            image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.contentBorderInsets.left),
+            image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.contentBorderInsets.bottom),
+            image.heightAnchor.constraint(equalToConstant: Constants.imageSize.height),
+            image.widthAnchor.constraint(equalToConstant: Constants.imageSize.width),
             
             titleLabel.topAnchor.constraint(equalTo: image.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: favoriteIcon.leadingAnchor, constant: -16),
             
             favoriteIcon.topAnchor.constraint(equalTo: image.topAnchor),
-            favoriteIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            favoriteIcon.heightAnchor.constraint(equalToConstant: 20),
-            favoriteIcon.widthAnchor.constraint(equalToConstant: 20),
+            favoriteIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.contentBorderInsets.right),
+            favoriteIcon.heightAnchor.constraint(equalToConstant: Constants.favoriteIconSize.height),
+            favoriteIcon.widthAnchor.constraint(equalToConstant: Constants.favoriteIconSize.width),
             
             priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 6),
             priceLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             
-            installmentsLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 0),
+            installmentsLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor),
             installmentsLabel.leadingAnchor.constraint(equalTo: priceLabel.leadingAnchor),
             
             installmentsPriceLabel.topAnchor.constraint(equalTo: installmentsLabel.topAnchor),
@@ -133,21 +137,21 @@ final class ProductsTableViewCell: UITableViewCell, ConfigurableProductsCell {
 
     func configure(with data: ProductsTableViewCellModel) {
         titleLabel.text = data.name
-        setupPrices(for: data)
-        image.setImageFromURL(URL(string: data.imageLink))
+        image.setImageFromURL(URL(string: data.thumbnailLink))
+        setupPriceLabels(for: data)
     }
     
-    private func setupPrices(for data: ProductsTableViewCellModel) {
+    private func setupPriceLabels(for data: ProductsTableViewCellModel) {
         guard let currency = data.currency else { return }
-        
-        let numberFormatter = NumberFormatter()
-        let locale = Locale(identifier: currency.id.rawValue)
-        numberFormatter.numberStyle = .currency
-        numberFormatter.locale = locale
+        let numberFormatter: NumberFormatter = .numberFormatterWithLocale(for: currency.id.rawValue)
         
         priceLabel.text = numberFormatter.string(for: data.price)
         
-        guard let installments = data.installments, let amountString = numberFormatter.string(for: installments.amount) else { return }
+        guard let installments = data.installments, let amountString = numberFormatter.string(for: installments.amount) else {
+            installmentsLabel.text = ""
+            installmentsPriceLabel.text = ""
+            return
+        }
         
         installmentsLabel.text = "en"
         installmentsPriceLabel.text = "\(installments.quantity)x \(amountString)"
