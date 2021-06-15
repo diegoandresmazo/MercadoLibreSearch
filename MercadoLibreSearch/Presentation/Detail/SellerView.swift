@@ -17,7 +17,7 @@ final class SellerView: UIView {
         let label = UILabel(frame: .zero)
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.8
+        label.minimumScaleFactor = 0.7
         label.font = .mercadoHeavy(withSize: Constants.labelsSize)
         label.text = "Información sobre el vendedor"
         label.textColor = .mercadoGrayColor

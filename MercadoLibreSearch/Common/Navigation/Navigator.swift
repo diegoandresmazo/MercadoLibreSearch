@@ -8,7 +8,12 @@
 import Foundation
 import UIKit
 
-public final class Navigator {
+protocol NavigatorType {
+    func start()
+    func navigateToDetail(product: ProductEntity)
+}
+
+public final class Navigator: NavigatorType {
     private let window: UIWindow
     private let rootNavigationController: UINavigationController
     private let apiService: APIServiceType

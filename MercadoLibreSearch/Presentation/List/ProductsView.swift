@@ -34,6 +34,7 @@ final class ProductsView: UIView, ProductsViewType {
     lazy var productsTableView: UITableView = {
         var table = UITableView(frame: .zero)
         table.separatorStyle = .none
+        table.backgroundColor = .mercadoBackgroundColor
         table.rowHeight = UITableView.automaticDimension
         table.translatesAutoresizingMaskIntoConstraints = false
         table.showsVerticalScrollIndicator = false
@@ -86,6 +87,7 @@ final class ProductsView: UIView, ProductsViewType {
     private lazy var informationMessageLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 3
         label.sizeToFit()
         label.font = .mercadoFont(withSize: Constants.notResultsMessageLabelSize)
         label.textColor = .mercadoGrayColor

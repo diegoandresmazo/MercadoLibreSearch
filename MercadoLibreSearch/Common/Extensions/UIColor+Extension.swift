@@ -38,7 +38,7 @@ extension UIColor {
     }
     
     static public var mercadoBackgroundColor: UIColor? {
-        return UIColor(hexString: "f6f6f8")
+        return UIColor(hexString: "e1e1e2")
     }
     
     static public var mercadoGrayColor: UIColor? {

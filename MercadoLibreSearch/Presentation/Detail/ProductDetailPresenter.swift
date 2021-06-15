@@ -10,12 +10,12 @@ import os.log
 
 final class ProductDetailPresenter {
     weak var view: ProductDetailViewControllerType?
-    private var product: ProductEntity
+    var product: ProductEntity
     private var productDetailService: ProductDetailServiceType
-    private var navigator: Navigator
+    private var navigator: NavigatorType
     private var cancellable: Set<AnyCancellable> = Set<AnyCancellable>()
     
-    init(product: ProductEntity, productDetailService: ProductDetailServiceType, navigator: Navigator) {
+    init(product: ProductEntity, productDetailService: ProductDetailServiceType, navigator: NavigatorType) {
         self.product = product
         self.productDetailService = productDetailService
         self.navigator = navigator

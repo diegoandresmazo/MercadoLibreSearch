@@ -9,12 +9,12 @@ import Foundation
 import Combine
 
 public protocol APIServiceType {
-    func call<T: Decodable>(_ request: URLRequest, type: T.Type) -> AnyPublisher<T, CloudError>
+    func call<T: Decodable>(_ request: URLRequest, urlSession: URLSession, type: T.Type) -> AnyPublisher<T, CloudError>
 }
 
 struct APIService: APIServiceType {
-    func call<T: Decodable>(_ request: URLRequest, type: T.Type) -> AnyPublisher<T, CloudError> {
-        return URLSession.shared
+    func call<T: Decodable>(_ request: URLRequest, urlSession: URLSession, type: T.Type) -> AnyPublisher<T, CloudError> {
+        return urlSession
             .dataTaskPublisher(for: request)
             .mapError({ urlError in
                 return CloudError.server(error: urlError)

@@ -9,7 +9,7 @@ import UIKit
 
 public final class ProductsConfigurator {
     
-    static func getViewController(with apiService: APIServiceType, navigator: Navigator) -> UIViewController {
+    static func getViewController(with apiService: APIServiceType, navigator: NavigatorType) -> UIViewController {
         
         let presenter = ProductsPresenter(productsService: ProductsService(apiService: apiService), navigator: navigator)
         let viewController = ProductsViewController(presenter: presenter)

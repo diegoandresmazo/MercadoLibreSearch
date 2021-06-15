@@ -16,9 +16,11 @@ class ProductsService: ProductsServiceType {
     private let baseURL = "https://api.mercadolibre.com/sites/MCO/search?q="
     private let currenciesBaseURL = "https://api.mercadolibre.com/currencies/"
     private let apiService: APIServiceType
+    private let session: URLSession
     
-    init(apiService: APIServiceType) {
+    init(apiService: APIServiceType, urlSession: URLSession = .shared) {
         self.apiService = apiService
+        self.session = urlSession
     }
     
     func getProducts(from query: String) -> AnyPublisher<[ProductEntity], CloudError> {
@@ -46,7 +48,7 @@ class ProductsService: ProductsServiceType {
         }
         
         let request = URLRequest(url: url)
-        return apiService.call(request, type: SearchAPI.self)
+        return apiService.call(request, urlSession: session, type: SearchAPI.self)
             .map({ SearchWrapper.map(input: $0)})
             .eraseToAnyPublisher()
     }
@@ -58,7 +60,7 @@ class ProductsService: ProductsServiceType {
         }
         
         let request = URLRequest(url: url)
-        return apiService.call(request, type: CurrencyAPI.self)
+        return apiService.call(request, urlSession: session, type: CurrencyAPI.self)
             .map({ CurrencyWrapper.map(input: $0)})
             .eraseToAnyPublisher()
     }

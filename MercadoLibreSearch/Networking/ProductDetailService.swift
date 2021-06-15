@@ -17,8 +17,11 @@ class ProductDetailService: ProductDetailServiceType {
     private let sellerBaseURL = "https://api.mercadolibre.com/users/"
     private let apiService: APIServiceType
     
-    init(apiService: APIServiceType) {
+    private let session: URLSession
+    
+    init(apiService: APIServiceType, urlSession: URLSession = .shared) {
         self.apiService = apiService
+        self.session = urlSession
     }
     
     func getProductDetailInfo(for productId: String) -> AnyPublisher<ProductDetailInfoEntity, CloudError> {
@@ -29,7 +32,7 @@ class ProductDetailService: ProductDetailServiceType {
         
         let request = URLRequest(url: url)
         
-        return apiService.call(request, type: ProductDetailInfoAPI.self)
+        return apiService.call(request, urlSession: session, type: ProductDetailInfoAPI.self)
             .map({ ProductDetailInfoWrapper.map(input: $0)})
             .flatMap({ productDetail in
                 self.getSeller(for: productDetail.sellerId)
@@ -50,7 +53,7 @@ class ProductDetailService: ProductDetailServiceType {
         
         let request = URLRequest(url: url)
         
-        return apiService.call(request, type: SellerAPI.self)
+        return apiService.call(request, urlSession: session, type: SellerAPI.self)
             .map({ SellerWrapper.map(input: $0)})
             .eraseToAnyPublisher()
     }
