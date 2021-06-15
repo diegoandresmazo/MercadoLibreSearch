@@ -237,7 +237,9 @@
 		146196C32670651400ACC040 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				146196C62670664F00ACC040 /* Models */,
+				14E148FB2672ED540090B3CF /* API */,
+				14E148FC2672ED610090B3CF /* Entities */,
+				14E149012672F1D90090B3CF /* Wrappers */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -260,16 +262,6 @@
 				147D3C4A267698FE00FCCD19 /* ProductDetailService.swift */,
 			);
 			path = Networking;
-			sourceTree = "<group>";
-		};
-		146196C62670664F00ACC040 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				14E148FB2672ED540090B3CF /* API */,
-				14E148FC2672ED610090B3CF /* Entities */,
-				14E149012672F1D90090B3CF /* Wrappers */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		147D3C3D2675C09600FCCD19 /* Design */ = {
