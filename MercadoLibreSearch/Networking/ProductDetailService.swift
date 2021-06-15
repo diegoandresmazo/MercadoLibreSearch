@@ -24,6 +24,9 @@ class ProductDetailService: ProductDetailServiceType {
         self.session = urlSession
     }
     
+    /**
+     * A call is made to the API with the productId and then a nested call is made to get the seller object of the product
+     */
     func getProductDetailInfo(for productId: String) -> AnyPublisher<ProductDetailInfoEntity, CloudError> {
         let urlString = baseURL + productId
         guard let url = URL(string: urlString) else {

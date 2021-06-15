@@ -159,6 +159,9 @@ final class ProductsView: UIView, ProductsViewType {
         ])
     }
     
+    /**
+     * The view is configured depending if the products are loaded, there are no results or there are errors.
+     */
     func setupView(for status: ProductsViewStatus) {
         switch status {
         case .showLoadingSearch:

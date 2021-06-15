@@ -28,6 +28,7 @@ class ProductDetailViewController: UIViewController {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
         
+        // The view controller is assigned to the presenter
         self.presenter.view = self
         self.presenter.viewDidLoad()
     }

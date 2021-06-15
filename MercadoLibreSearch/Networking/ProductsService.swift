@@ -23,6 +23,9 @@ class ProductsService: ProductsServiceType {
         self.session = urlSession
     }
     
+    /**
+     * A call is made to the API with the query and then a nested call is made to get the currency of the product
+     */
     func getProducts(from query: String) -> AnyPublisher<[ProductEntity], CloudError> {
         return search(for: query)
             .map({ searchEntity -> [ProductEntity] in

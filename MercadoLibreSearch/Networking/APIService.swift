@@ -12,6 +12,9 @@ public protocol APIServiceType {
     func call<T: Decodable>(_ request: URLRequest, urlSession: URLSession, type: T.Type) -> AnyPublisher<T, CloudError>
 }
 
+/**
+ * The API is called and an attempt is made to decode to the API of the type T: (Generic)
+ */
 struct APIService: APIServiceType {
     func call<T: Decodable>(_ request: URLRequest, urlSession: URLSession, type: T.Type) -> AnyPublisher<T, CloudError> {
         return urlSession

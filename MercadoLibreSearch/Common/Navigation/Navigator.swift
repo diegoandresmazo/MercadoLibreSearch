@@ -13,6 +13,9 @@ protocol NavigatorType {
     func navigateToDetail(product: ProductEntity)
 }
 
+/**
+ * Navigator is an object used by Presenters to manage navigation to other controllers
+ */
 public final class Navigator: NavigatorType {
     private let window: UIWindow
     private let rootNavigationController: UINavigationController

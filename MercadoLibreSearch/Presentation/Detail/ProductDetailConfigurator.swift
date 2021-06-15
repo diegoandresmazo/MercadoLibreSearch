@@ -7,6 +7,9 @@
 
 import UIKit
 
+/**
+ * Here, the ProductDetail view controller is configured with its respective presenter
+ */
 public final class ProductDetailConfigurator {
     
     static func getViewController(for product: ProductEntity, with apiService: APIServiceType, navigator: NavigatorType) -> UIViewController {

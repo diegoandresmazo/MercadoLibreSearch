@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 import os.log
 
+/**
+ * Presenter for the ProductsViewController
+ */
 final class ProductsPresenter {
     weak var view: ProductsViewControllerType?
     private var productsService: ProductsServiceType

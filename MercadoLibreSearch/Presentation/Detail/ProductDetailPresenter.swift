@@ -8,6 +8,9 @@
 import Combine
 import os.log
 
+/**
+ * Presenter for the ProductDetailViewController
+ */
 final class ProductDetailPresenter {
     weak var view: ProductDetailViewControllerType?
     var product: ProductEntity
@@ -28,6 +31,9 @@ final class ProductDetailPresenter {
 }
 
 extension ProductDetailPresenter: ProductDetailPresenterType {
+    /**
+     *  The API is called to get extra detail information about the product, such as seller data.
+     */
     func getProductDetailInfo(for productId: String) {
         productDetailService.getProductDetailInfo(for: productId)
             .sink { [weak self]  errorCompletion in

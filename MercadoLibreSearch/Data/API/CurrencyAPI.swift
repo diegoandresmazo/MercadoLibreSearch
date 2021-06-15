@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ * In CurrencyAPI the currency for each product is obtained, this currency is also mapped to a Locale identifier.
+ */
 public struct CurrencyAPI: Codable {
     let id: CurrencyLocale
     let symbol: String

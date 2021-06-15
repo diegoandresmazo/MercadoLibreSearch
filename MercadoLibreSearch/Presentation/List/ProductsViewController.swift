@@ -34,6 +34,7 @@ class ProductsViewController: UIViewController {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
         
+        // The view controller is assigned to the presenter
         self.presenter.view = self
         self.presenter.viewDidLoad()
     }
@@ -56,6 +57,9 @@ class ProductsViewController: UIViewController {
 }
 
 extension ProductsViewController: ProductsViewControllerType {
+    /**
+     * The view is configured depending on the presenter result. 
+     */
     func show(_ productViewStatus: ProductsViewStatus, products: [ProductEntity]?) {
         switch productViewStatus {
         case .showLoadingSearch:

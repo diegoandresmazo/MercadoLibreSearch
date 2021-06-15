@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ * In ProductDetailInfoAPI we get extra information for the product, such as a new image with better resolution and the seller's identifier to later get the seller's data.
+ */
 public struct ProductDetailInfoAPI: Codable {
     let sellerId: Int
     let thumbnailLink: String
